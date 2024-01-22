@@ -1,5 +1,6 @@
 
 import User from '../models/userModel.js'
+import bycryptjs from 'bcryptjs';
 
 export const signup = async (req, res) => {
 
@@ -12,14 +13,21 @@ export const signup = async (req, res) => {
         || password === '') {
         return res.status(400).json({ msg: 'All fiels are required' })
     }
+
+    const hashPassword = bycryptjs.hashSync(password, 10);
+
     const newUser = new User({
         userName,
         email,
-        password
+        password : hashPassword
     });
 
-    await newUser.save();
-    res.json('Signup Success');
+    try {
+        await newUser.save();
+        res.json('Signup Success');
+    } catch (error) {
+        res.status(500).json({ msg: error.message })
+    }
 
 }
 

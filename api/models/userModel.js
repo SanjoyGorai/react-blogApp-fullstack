@@ -10,6 +10,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
         unique: false
+    },
+    password: {
+        type: String,
+        require: false,
+        unique: true
     }
 },
     { timestamps: true }
