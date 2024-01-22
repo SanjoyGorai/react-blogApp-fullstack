@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
     res.send("Hello from Express Server");
 })
 
+app.use(express.json());
 app.use('/users', userRouter);
 app.use('/auth', authRoute);
 
