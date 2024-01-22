@@ -1,6 +1,6 @@
 
 export const test = (req, res) => {
-    res.json({ name: "Sanjoy Gorai" })
+    res.json({ name: "Mr. Sanjoy Gorai" })
 }
 
 
