@@ -15,14 +15,18 @@ mongoose.connect('mongodb+srv://sanjoy10062000:VtYlizOAn1Z1sA7S@blogapp.8o8saox.
         console.log('Atlas Error: ' + error);
     })
 
-
-app.get('/', (req, res) => {
-    res.send("Hello from Express Server");
-})
-
 app.use(express.json());
 app.use('/users', userRouter);
 app.use('/auth', authRoute);
+app.use((error, req, res, next) => {
+    const statusCode = error.statusCode || 500;
+    const message = error.message || 'Internal Server Error';
+    res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message
+    })
+});
 
 
 app.listen(PORT, () => {
